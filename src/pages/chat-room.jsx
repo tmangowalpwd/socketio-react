@@ -45,7 +45,7 @@ const ChatRoom = () => {
       fetchMessages();
 
       socketConnection.on("NEW_MESSAGE", (newMessage) => {
-        setMessages([...messages, newMessage]);
+        setMessages((oldState) => [...oldState, newMessage]);
       });
     }
 
@@ -82,6 +82,20 @@ const ChatRoom = () => {
         />
         <Button onClick={sendMessageHandler}>Send</Button>
       </div>
+      {messages.map((val) => {
+        return (
+          <div
+            className={`d-flex flex-column ${
+              val.user_id == JSON.parse(localStorage.getItem("user")).id
+                ? "align-items-end"
+                : "align-items-start"
+            }`}
+          >
+            <span className="text-muted">{val?.User?.username}</span>
+            <span className="fw-bold">{val.message}</span>
+          </div>
+        );
+      })}
     </Container>
   );
 };
