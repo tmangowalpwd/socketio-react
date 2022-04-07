@@ -1,22 +1,17 @@
 import "bootstrap/dist/css/bootstrap.css";
-import { useEffect } from "react";
-import { Button } from "reactstrap";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { io } from "socket.io-client";
+import RoomsPage from "./pages/rooms";
+
+// const socketConnection = io("http://172.16.31.230:2000");
 
 const App = () => {
-  const connect = () => {
-    io("http://localhost:2000");
-  };
-
-  useEffect(() => {
-    // io("http://localhost:2000");
-  }, []);
-
   return (
-    <div>
-      <h1>App</h1>
-      <Button onClick={connect}>Connect to socket</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/rooms" element={<RoomsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
